@@ -1,5 +1,9 @@
 package agente;
 
+/** Classe de definição do comportamento do agente diante do labirinto
+ *  @author Lucas Rosa, Novack Renato e David Lira
+ */
+
 import ambiente.Labirinto;
 import geral.PosicaoXY;
 
