@@ -1,9 +1,5 @@
 package agente;
 
-/** Classe de definição do comportamento do agente diante do labirinto
- *  @author Lucas Rosa, Novack Renato e David Lira
- */
-
 import ambiente.Labirinto;
 import geral.PosicaoXY;
 
@@ -33,11 +29,16 @@ public class AgenteLabirinto {
 		PosicaoXY proximoMovimento = retornarMovimento();
 		String valor = this.labirinto.retornarValorPosicaoLabirinto(proximoMovimento);
 		
-		if (valor.equals("L") || valor.equals("*A*")) {
+		if (valor.equals("L") || valor.equals("*A*") || valor.equals("O")) {
 			proximoMovimento();
 			aumentarPilha();
 			movimentar();
-		} else {
+			if (valor.equals("O") && valor.equals("L")) {
+				movimentoObstaculo();
+				aumentarPilha();
+			}
+		} 
+		else {
 			this.labirinto.limpar();
 			this.posXY = proximoMovimento;
 		}
@@ -60,6 +61,23 @@ public class AgenteLabirinto {
 				break;
 			case DIREITA:
 				this.movimento = MovimentosAgenteLabirinto.CIMA;
+				break;
+		}
+	}
+	private void movimentoObstaculo() {
+		switch(this.movimento) {
+			
+			case BAIXO:
+				this.movimento = MovimentosAgenteLabirinto.ESQUERDA;
+				break;
+			case ESQUERDA:
+				this.movimento = MovimentosAgenteLabirinto.DIREITA;
+				break;
+			case DIREITA:
+				this.movimento = MovimentosAgenteLabirinto.CIMA;
+				break;
+			case CIMA:
+				this.movimento = MovimentosAgenteLabirinto.BAIXO;
 				break;
 		}
 	}
